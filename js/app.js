@@ -24,42 +24,6 @@ function loadCoffees() {
 const username = "coffe";
 const password = "kafe";
 
-/* Function to handle form submission */
-function submitForm() {
-    const selectedPerson = document.querySelector('input[name="person"]:checked');
-
-    if (!selectedPerson) {
-        alert("Prosím, vyberte osobu!");
-        return;
-    }
-
-    let formData = new FormData();
-
-    const coffeeInputs = document.querySelectorAll('input[type="range"]');
-    coffeeInputs.forEach(input => {
-        formData.append(input.name, input.value);
-    });
-
-    formData.append('person', selectedPerson.value);  // Add the selected person
-
-    const xhttp = new XMLHttpRequest();
-    const url = "http://ajax1.lmsoft.cz/procedure.php?cmd=saveDrinks";
-
-    xhttp.open("POST", url, true);
-    xhttp.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
-
-    xhttp.onload = function() {
-        if (xhttp.status >= 200 && xhttp.status < 300) {
-            alert("Data byla úspěšně odeslána.");
-            displaySummary();  // Show summary after submission
-        } else {
-            alert("Při odesílání dat došlo k chybě.");
-        }
-    };
-
-    xhttp.send(formData);  // Send form data
-}
-
 /* AJAX Request Method */ 
 function ajaxRequest(command, callback) {
     const url = `http://ajax1.lmsoft.cz/procedure.php?cmd=${command}`;
@@ -172,4 +136,40 @@ function renderSummary(data) {
     summaryHtml += '</div>';
 
     document.getElementById("summary").innerHTML = summaryHtml;
+}
+
+/* Function to handle form submission */
+function submitForm() {
+    const selectedPerson = document.querySelector('input[name="person"]:checked');
+
+    if (!selectedPerson) {
+        alert("Prosím, vyberte osobu!");
+        return;
+    }
+
+    let formData = new FormData();
+
+    const coffeeInputs = document.querySelectorAll('input[type="range"]');
+    coffeeInputs.forEach(input => {
+        formData.append(input.name, input.value);
+    });
+
+    formData.append('person', selectedPerson.value);  // Add the selected person
+
+    const xhttp = new XMLHttpRequest();
+    const url = "http://ajax1.lmsoft.cz/procedure.php?cmd=saveDrinks";
+
+    xhttp.open("POST", url, true);
+    xhttp.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+
+    xhttp.onload = function() {
+        if (xhttp.status >= 200 && xhttp.status < 300) {
+            alert("Data byla úspěšně odeslána.");
+            displaySummary();  // Show summary after submission
+        } else {
+            alert("Při odesílání dat došlo k chybě.");
+        }
+    };
+
+    xhttp.send(formData);  // Send form data
 }
