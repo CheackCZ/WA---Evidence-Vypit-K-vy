@@ -1,0 +1,77 @@
+body {
+    font-family: Arial, sans-serif;
+ 
+    padding: 20px;
+}
+
+.name-group, .coffee-group {
+    margin-bottom: 15px;
+}
+
+label {
+    margin-right: 10px;
+}
+
+input[type="range"] {
+    width: 150px;
+}
+
+button {
+    padding: 10px 20px;
+   
+    background-color: #4CAF50;
+    color: white;
+   
+    border: none;
+   
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 600px) {
+    .name-group, .coffee-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    input[type="range"] {
+        width: 100%;
+    }
+}
+
+/* Get Summary Of Drinks Styles */
+.summary-container {
+    padding: 10px 20px;
+
+    background-color: #f9f9f9;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    margin: 20px 0;
+}
+
+.summary-item h3 {
+    margin: 0;
+    
+    font-size: 1.2em;
+    
+    color: #333;
+
+    margin-bottom: 15px;
+}
+
+.summary-item ul {
+    list-style-type: none;
+    
+    padding: 0;
+    
+    margin: 0;
+}
+
+.summary-item li {
+    margin-bottom: 5px;
+}
