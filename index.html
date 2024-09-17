@@ -2,21 +2,33 @@
 
 <html lang="en">
 
+    <!-- HEAD -->
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
+        <!-- Links to css -->
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/response.css">
         
+        <!-- Title -->
         <title>Evidence Kávy</title>
     </head>
     
+    <!-- BODY -->
     <body>
         <!-- Formulář -->
         <form id="dataForm" action="http://ajax1.lmsoft.cz/procedure.php?cmd=saveDrinks" method="post">
+            <!-- Title for the form -->
+            <h2>Evidence Kávy</h2>
+
+            <!-- Title for the person selection -->
+            <h3 id="person-title">Vyber osobu:</h3>
             <!-- Div použit pro tvorbu radio tlačítek a jmén -->
             <div id="nameInputs"></div>
 
+            <!-- Title for the coffee selection -->
+            <h3>Zadej množství kávy:</h3>
             <!-- Div použit pro tvorbu sliderů a názvů káv -->
             <div id="coffeeInputs"></div>
 

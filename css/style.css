@@ -1,21 +1,81 @@
-body {
-    font-family: Arial, sans-serif;
- 
-    padding: 20px;
+/* General */
+* {
+    box-sizing: border-box;
 }
 
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+
+    margin: 0;
+    padding: 0;
+
+    height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+}
+
+/* Form */
+form {
+    width: fit-content;
+
+    padding: 20px;
+
+    border: 1px solid #333;
+    border-radius: 20px;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+/* Title for the form styling */
+h2 {
+    text-align: center;
+}
+
+/* Title for the person selection styling */
+#person-title {
+    margin-top: 0;
+}
+
+/* Margin between individual items of both selections */
 .name-group, .coffee-group {
     margin-bottom: 15px;
 }
 
-label {
-    margin-right: 10px;
+/* Coffee selections styling */
+.coffee-group {
+    display: flex;
+    
+    align-items: center;
+}
+/* Coffee selection Labels*/
+.coffee-group label {
+    width: 60px; /* Adjust this width based on the length of your labels */
+}
+/* Coffee selection Spans */
+.coffee-group span {
+    width: 30px; 
+
+    text-align: right;
+
+    font-weight: bold;
+    
+    margin-right: 10px; /* Add some spacing between the value and the slider */
 }
 
+/* Slider */
 input[type="range"] {
     width: 150px;
 }
 
+/* Button */
 button {
     padding: 10px 20px;
    
@@ -25,26 +85,26 @@ button {
     border: none;
    
     cursor: pointer;
-}
 
+    margin-top: 24px;
+}
+/* Hover settings for button */
 button:hover {
     background-color: #45a049;
 }
 
-@media (max-width: 600px) {
-    .name-group, .coffee-group {
-        display: flex;
-        flex-direction: column;
-    }
-
-    input[type="range"] {
-        width: 100%;
-    }
-}
-
 /* Get Summary Of Drinks Styles */
+#summary {
+    display: flex;
+
+    justify-content: center;
+}
+/* Summary of Drinks container */
 .summary-container {
-    padding: 10px 20px;
+    width: 296px;
+
+    padding: 20px;
+    padding-bottom: 10px;
 
     background-color: #f9f9f9;
 
@@ -53,7 +113,7 @@ button:hover {
 
     margin: 20px 0;
 }
-
+/* User name as a title at summary */
 .summary-item h3 {
     margin: 0;
     
@@ -63,15 +123,12 @@ button:hover {
 
     margin-bottom: 15px;
 }
-
 .summary-item ul {
     list-style-type: none;
     
     padding: 0;
-    
     margin: 0;
 }
-
 .summary-item li {
     margin-bottom: 5px;
 }

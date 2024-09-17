@@ -47,6 +47,7 @@ function ajaxRequest(command, callback) {
 /* Function to display people on the page */
 function displayPeople(data) {
     let nameInputsHtml = '';
+
     for (let key in data) {
         if (data.hasOwnProperty(key)) {
             nameInputsHtml += `
@@ -57,12 +58,14 @@ function displayPeople(data) {
             `;
         }
     }
+
     document.getElementById("nameInputs").innerHTML = nameInputsHtml;
 }
 
 /* Function to display coffee types on the page */
 function displayCoffees(data) {
     let coffeeInputsHtml = '';
+
     for (let key in data) {
         if (data.hasOwnProperty(key)) {
             coffeeInputsHtml += `
@@ -74,6 +77,7 @@ function displayCoffees(data) {
             `;
         }
     }
+
     document.getElementById("coffeeInputs").innerHTML = coffeeInputsHtml;
 }
 
@@ -113,6 +117,7 @@ function renderSummary(data) {
         summaryHtml += '<p>No data available.</p>';
     } else {
         let personName = '';
+        
         data.forEach(item => {
             if (personName !== item[2]) {
                 if (personName !== '') {
@@ -165,6 +170,10 @@ function submitForm() {
     xhttp.onload = function() {
         if (xhttp.status >= 200 && xhttp.status < 300) {
             alert("Data byla úspěšně odeslána.");
+
+            document.body.style.height = "fit-content";
+            document.body.style.marginTop = "20px";
+            
             displaySummary();  // Show summary after submission
         } else {
             alert("Při odesílání dat došlo k chybě.");
