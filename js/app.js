@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+
 /* Function to load people data from the server */
 function loadPeople() {
     ajaxRequest("getPeopleList", displayPeople);
@@ -20,9 +21,11 @@ function loadCoffees() {
     ajaxRequest("getTypesList", displayCoffees);
 }
 
+
 /* Login credentials */
 const username = "coffe";
 const password = "kafe";
+
 
 /* AJAX Request Method */ 
 function ajaxRequest(command, callback) {
@@ -44,6 +47,7 @@ function ajaxRequest(command, callback) {
     xhttp.send();
 }
 
+
 /* Function to display people on the page */
 function displayPeople(data) {
     let nameInputsHtml = '';
@@ -52,7 +56,7 @@ function displayPeople(data) {
         if (data.hasOwnProperty(key)) {
             nameInputsHtml += `
                 <div class="name-group">
-                    <input type="radio" id="name${key}" name="person" value="${data[key].ID}">
+                    <input type="radio" id="name${key}" name="user" value="${data[key].ID}">
                     <label for="name${key}">${data[key].name}</label>
                 </div>
             `;
@@ -72,7 +76,7 @@ function displayCoffees(data) {
                 <div class="coffee-group">
                     <label for="coffee${key}">${data[key].typ}</label>
                     <span id="coffeeValue${key}"><b>5</b></span>
-                    <input type="range" id="coffee${key}" name="${data[key].typ}" min="1" max="10" value="5" class="slider" oninput="updateSliderValue(${key})">
+                    <input type="range" id="coffee${key}" name="type[]" min="1" max="10" value="5" class="slider" oninput="updateSliderValue(${key})">
                 </div>
             `;
         }
@@ -81,6 +85,7 @@ function displayCoffees(data) {
     document.getElementById("coffeeInputs").innerHTML = coffeeInputsHtml;
 }
 
+
 /* Update slider value dynamically */
 function updateSliderValue(key) {
     const slider = document.getElementById(`coffee${key}`);
@@ -88,6 +93,7 @@ function updateSliderValue(key) {
 
     output.textContent = slider.value;
 }
+
 
 /* Display the summary of coffee drinks */
 function displaySummary() {
@@ -145,21 +151,9 @@ function renderSummary(data) {
 
 /* Function to handle form submission */
 function submitForm() {
-    const selectedPerson = document.querySelector('input[name="person"]:checked');
+    const form = document.getElementById("dataForm");
 
-    if (!selectedPerson) {
-        alert("Prosím, vyberte osobu!");
-        return;
-    }
-
-    let formData = new FormData();
-
-    const coffeeInputs = document.querySelectorAll('input[type="range"]');
-    coffeeInputs.forEach(input => {
-        formData.append(input.name, input.value);
-    });
-
-    formData.append('person', selectedPerson.value);  // Add the selected person
+    let formData = new FormData(form);
 
     const xhttp = new XMLHttpRequest();
     const url = "http://ajax1.lmsoft.cz/procedure.php?cmd=saveDrinks";
@@ -169,12 +163,23 @@ function submitForm() {
 
     xhttp.onload = function() {
         if (xhttp.status >= 200 && xhttp.status < 300) {
-            alert("Data byla úspěšně odeslána.");
+            try {
+                const data = JSON.parse(xhttp.responseText);
 
-            document.body.style.height = "fit-content";
-            document.body.style.marginTop = "20px";
-            
-            displaySummary();  // Show summary after submission
+                if (data["msg"] == 1) {
+                    alert("Data byla úspěšně odeslána.");
+
+                    document.body.style.height = "fit-content";
+                    document.body.style.marginTop = "20px";
+                    
+                    displaySummary();  // Show summary after submission
+                }
+                else {
+                    alert("Data se nepovedlo odeslat!")
+                }
+            } catch (error) {
+
+            }
         } else {
             alert("Při odesílání dat došlo k chybě.");
         }
