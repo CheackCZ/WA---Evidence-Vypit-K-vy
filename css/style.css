@@ -182,6 +182,8 @@ th, td {
     text-align: left;
 
     color: #333;
+
+    padding-right: 20px;
 }
 th {
     background-color: #4CAF50;
@@ -189,7 +191,10 @@ th {
 }
 
 td:nth-child(3) {
-    text-align: center;
+    text-align: right;
+
+    padding-left: 0;
+    padding-right: 10px;
 }
 
 tr:nth-child(even) {
