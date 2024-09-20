@@ -1,12 +1,5 @@
 /* Add responsive behavior for screens smaller than 400px */
 @media (max-width: 500px) {
-    #summary {
-        width: 100%;
-    }
-    form, .summary-container {
-        width: 80%;
-    }
-
     .coffee-group {
         flex-direction: column;
 
@@ -27,5 +20,20 @@
     }
     .coffee-group input[type="range"] {
         width: 100%; /* Slider will take full width on small screens */
+    }
+
+    #summary {
+        width: 100%;
+    }
+    form, .summary-container {
+        width: 80%;
+    }
+
+    #monthlyStatisticsForm {
+        width: 80%;
+    }
+
+    table {
+        width: 80%;
     }
 }

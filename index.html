@@ -38,9 +38,20 @@
             <!-- Tlačítko pro odeslání formuláře -->
             <button type="submit">Submit</button>
         </form>
-
+        
         <!-- Container for displaying the summary -->
         <div id="summary"></div>
+
+        <!-- Div with table and input showing the statistics of chosen person for given month -->
+        <form id="monthlyStatisticsForm">
+            <label for="month">Enter month (for statistics): </label>
+            <input type="number" name="month" id="month">
+
+            <button type="submit">Submit Month</button>
+        </form>
+
+        <!-- Table with statistics for given month -->
+        <table id="statisticsTable"></table>
 
         <!-- JavaScript s veškerou logikou -->
         <script src="js/app.js"></script>

@@ -8,6 +8,12 @@ document.addEventListener("DOMContentLoaded", function() {
         e.preventDefault();  // Prevent default form submission
         submitForm();
     });
+
+    // Handle form submission via submit event
+    document.getElementById("monthlyStatisticsForm").addEventListener("submit", function(e) {
+        e.preventDefault();  // Prevent default form submission
+        monthStatistics();
+    });
 });
 
 
@@ -149,6 +155,7 @@ function renderSummary(data) {
     document.getElementById("summary").innerHTML = summaryHtml;
 }
 
+
 /* Function to handle form submission */
 function submitForm() {
     const form = document.getElementById("dataForm");
@@ -169,9 +176,6 @@ function submitForm() {
                 if (data["msg"] == 1) {
                     alert("Data byla úspěšně odeslána.");
 
-                    document.body.style.height = "fit-content";
-                    document.body.style.marginTop = "20px";
-                    
                     displaySummary();  // Show summary after submission
                 }
                 else {
@@ -186,4 +190,71 @@ function submitForm() {
     };
 
     xhttp.send(formData);  // Send form data
+}
+
+
+/* Function showing the table with month statistics */
+function monthStatistics() {
+    const month = document.getElementById("month").value;
+
+    const form = document.getElementById("monthlyStatisticsForm");
+    let formData = new FormData(form);
+
+    if ((month < 1) || (month > 12)) {
+        alert("Zadaný měsíc není validný!")
+    } else {
+        const url = `http://ajax1.lmsoft.cz/procedure.php?cmd=getSummaryOfDrinks&month=${month}`;
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("GET", url, true);
+        xhttp.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState === 4) {
+                if (xhttp.status >= 200 && xhttp.status < 300) {
+                    try {
+                        const data = JSON.parse(xhttp.responseText);
+                        displayMonthStatistics(data);
+                    } catch (e) {
+                        console.error("Error parsing JSON response: ", e);
+                        console.error("Response received: ", xhttp.responseText);
+                    }
+                } else {
+                    console.error("Chyba při načítání shrnutí. Status: " + xhttp.status);
+                }
+            }
+        };
+        xhttp.send(formData);
+    }
+}
+
+/* Function that fills table with data */
+function displayMonthStatistics(data) {
+    let tableHtml = ``;
+    console.log("Table in HTML: " + tableHtml);
+
+    if (data.length === 0) {
+        tableHtml += '<p>No data available.</p>';
+    } else {
+        document.getElementById("statisticsTable").style.display = "flex";
+
+        let rows = ''; 
+
+        rows += `<tr>
+                    <th>Osoba</th>
+                    <th>Typ kávy</th>
+                    <th>Počet káv</th>
+                </tr>`;
+
+        data.forEach(item => {
+            rows += `<tr>
+                        <td>${item[2]}</td>
+                        <td>${item[0]}</td>
+                        <td>${item[1]}</td>
+                     </tr>`;
+        });
+        tableHtml += rows;
+    }
+
+    document.getElementById("statisticsTable").innerHTML = tableHtml;
 }
